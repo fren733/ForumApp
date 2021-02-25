@@ -1,0 +1,30 @@
+﻿.cardview-button {
+    border: 1px solid transparent;
+    font-size: 20px;
+    width: 24.3%;
+}
+
+.cardview-upvote {
+    color: #ce2b2b;
+}
+
+.cardview-avatar {
+    border-radius: 20px;
+    height: 40px;
+    width: 40px;
+}
+
+.cardview-image {
+    max-height: 600px;
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+}
+
+.cardview-content {
+    margin-left: 45px;
+}
+
+.cardview-text {
+    padding-right: 40px;
+}

@@ -1,0 +1,54 @@
+﻿.input-textarea {
+    background-color: transparent;
+    border-color: #839496;
+}
+
+    .input-textarea :active {
+        background-color: transparent;
+    }
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+    .inputfile + label {
+        font-weight: 700;
+        display: inline-block;
+    }
+
+        .inputfile:focus + label,
+        .inputfile + label:hover {
+            background-color: transparent;
+       }
+
+    .inputfile + label {
+        cursor: pointer;
+    }
+
+.createpost-outline {
+    overflow: auto;
+    max-height: 500px;
+    border-top: 1px solid #839496;
+    margin: 15px;
+}
+
+.createpost-padding {
+    padding: 15px;
+    padding-bottom: 0px;
+}
+
+.createpost-image {
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+.createpost-button {
+    width: 49%;
+    border: 1px solid transparent;
+}

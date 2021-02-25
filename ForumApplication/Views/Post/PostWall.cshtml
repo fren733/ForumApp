@@ -1,0 +1,150 @@
+﻿
+<div class="border-section top-title">
+    <h2 class="bold">Pain page</h2>
+    <i class="fas fa-user-friends icon mt-1"></i>
+    <i class="fas fa-user icon mt-1"></i>
+</div>
+<div>
+    <div>
+        @{
+            Html.RenderPartial("CreatePost");
+        }
+    </div>
+    <div id="postlist"></div>
+    <div class="progress-bar" id="loading_posts">
+        <span class="bar">
+            <span class="progress"></span>
+        </span>
+    </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="content"></div>
+        </div>
+    </div>
+</div>
+<link href="~/Content/Modal.css" rel="stylesheet" />
+<link href="~/Content/loading.css" rel="stylesheet" />
+<script>
+    btn = $("#wall").addClass("btn-active");
+</script>
+<script>
+    $(document).ready(function () {
+
+        var loading = $("#loading_posts");
+        var url = '@Url.Action("GetPosts")';
+
+        var currentPageNumber = 1;
+        loadData(currentPageNumber, url);
+
+        $(window).scroll(function () {
+            var height = $(document).height() - $(window).height();
+
+            if ($(window).scrollTop() - height > -10) {
+                currentPageNumber += 1;
+                loadData(currentPageNumber, url);
+            }
+        });
+
+        function loadData(currentPage, url) {
+            loading.show();
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: {
+                    pageNumber: currentPage,
+                    pageSize: 15
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data, function (i, item) {
+
+                        var postid = item.PostID;
+
+                        $.ajax({
+                            url: '@Url.Action("CardPartial")',
+                            type: 'GET',
+                            data: {
+                                PostID: postid
+                            },
+                            success: function (result) {
+                                $('#postlist').append(result);
+                            }
+                        });
+                    });
+                },
+                complete: function () {
+                    loading.hide();
+                }
+            });
+        }
+    });
+</script>
+<script>
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    function OpenModal() {
+
+        var postid = $(event.target).closest("button").attr("value");
+
+        $.ajax({
+            url: '@Url.Action("CreatePost")',
+            type: 'GET',
+            data: {
+                PostID: postid
+            },
+            error: function (xhr) {
+                alert('Error: ' + xhr.statusText);
+            },
+            success: function (result) {
+                $('#content').html(result);
+            }
+        });
+        modal.style.display = "block";
+    }
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+<script>
+    function Like(PostID) {
+
+        var like = $(event.target).closest("button");
+        var postid = PostID;
+        var span = like.children("span");
+
+        $.ajax({
+            url: '@Url.Action("Like")',
+            method: 'POST',
+            data: {
+                PostID: postid
+            },
+            dataType: 'json',
+            success: function (data) {  
+
+                console.log(data);
+
+                    if (span.hasClass("far fa-heart cardview-upvote")) {
+                        like.html("<span class='fas fa-heart cardview-upvote icon-alt'></span> " + data.toString());
+                    }
+                    else {
+                        like.html("<span class='far fa-heart cardview-upvote icon-alt'></span> " + data.toString());
+                    }
+            },
+            error: function (ex) {
+
+                console.log("nie działa");
+            }
+        });
+    }
+</script>
+

@@ -1,0 +1,115 @@
+﻿<div>
+    @{ 
+        Html.RenderPartial("CardPartial");
+    }
+    <div id="mainpost"></div>
+    <div class="comments" id="comments">
+
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="content"></div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div id="postlist">
+
+    </div>
+</div>
+<link href="~/Content/Modal.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<script>
+    $(document).ready(function () {
+
+        var url = '@Url.Action("GetComments")';
+        var currentPageNumber = 1;
+        loadData(currentPageNumber, url);
+
+        $(window).scroll(function () {
+            var height = $(document).height() - $(window).height();
+
+            if ($(window).scrollTop() - height > -10) {
+                currentPageNumber += 1;
+                loadData(currentPageNumber, url);
+            }
+        });
+
+        function loadData(currentPage, url) {
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: {
+                    OverPostID: @Model.PostID,
+                    pageNumber: currentPage,
+                    pageSize: 15
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data, function (i, item) {
+
+                        var postid = item.PostID;
+
+                        $.ajax({
+                            url: '/Post/CardPartial',
+                            type: 'GET',
+                            data: {
+                                PostID: postid
+                            },
+                            error: function (xhr) {
+                                alert('Error: ' + xhr.statusText);
+                            },
+                            success: function (result) {
+                                $('#comments').append(result);
+                            }
+                        });
+                    });
+                },
+                error: function (ex) {
+                    var r = jQuery.parseJSON(response.responseText);
+                    alert("Message: " + r.Message);
+                }
+            });
+        }
+    });
+</script>
+<script>
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    function OpenModal() {
+    
+        var postid = $(event.target).closest("button").attr("value");
+    
+        $.ajax({
+            url: '/Post/CreatePost',
+            type: 'GET',
+            data: {
+                PostID: postid
+            },
+            error: function (xhr) {
+                alert('Error: ' + xhr.statusText);
+            },
+            success: function (result) {
+                $('#content').html(result);
+            }
+        });
+        modal.style.display = "block";
+    }
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+

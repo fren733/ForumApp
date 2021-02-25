@@ -1,0 +1,54 @@
+﻿@model ForumApplication.Models.PostCreateModel
+<link href="~/Content/CreatePost.css" rel="stylesheet" />
+<div class="">
+    @using (Html.BeginForm("CreatePost", "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        if (Model != null)
+        {
+            <div class="new-post-wrapper">
+                @{
+                    Html.RenderPartial("CardPartial");
+                }
+            </div>
+        }
+
+        <div class="post-panel border-section top-section">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div>
+                <img class="profile-img" src="~/Images/anonymous.png" />
+            </div>
+            @*<div>
+                <p class="sm-text">Napisz coś</p>
+                <textarea name="Content" class="inpt"></textarea>
+            </div>*@
+
+            <div class="sec-single">
+                <div class="crd">
+                    <p class="sm-text">Write something</p>
+                    <textarea class="inpt" name="Content"></textarea>
+                    <i></i>
+                </div>
+            </div>
+            <div class="icons-pack">
+                <div class="file">
+                    <input type="file" name="ImageFile" id="ImageFile" class="inputfile" />
+                    <label for="ImageFile">
+                        <span class="fas fa-photo-video icon"></span>
+                    </label>
+                </div>
+                <div>
+                    <i class="fas fa-poll icon"></i>
+                </div>
+                <div>
+                    <i class="fas fa-smile-beam icon"></i>
+                </div>
+                <div>
+                    <button style="float:right;" type="submit"><span class="far fa-paper-plane icon"></span></button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

@@ -1,0 +1,44 @@
+﻿.site-outline {
+    height: 100%;
+    padding-right: 50px;
+}
+
+.first-column {
+}
+
+.second-column {
+}
+
+.third-column {
+}
+
+.fourth-column {
+    padding-left: 25px;
+}
+
+.second-column-content {
+    position: sticky;
+    top: 200px;
+    border-radius: 5px;
+}
+
+.third-column-content {
+    border: 1px solid #839496;
+    border-top: 1px solid transparent;
+}
+
+.menu-nav-item {
+    border: 1px solid transparent;
+    font-size: 30px
+}
+
+
+.site-footer {
+    margin-left: 25px;
+}
+
+.fourth-column-content {
+    position: sticky;
+    top: 200px;
+}
+

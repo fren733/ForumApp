@@ -1,0 +1,55 @@
+﻿<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+<link href="~/Content/register.css" rel="stylesheet" />
+@{
+    Layout = "";
+}
+
+<div class="u-center border-section">
+    @using (Html.BeginForm())
+    {
+        <form class="u-form">
+            <div class="crd-title">
+                <h1 class="bold">Register</h1>
+                <p class="sm-text">Fill fields below</p>
+            </div>
+            <div class="sec-single">
+                <div class="crd">
+                    <p class="sm-text">Username</p>
+                    <input class="inpt" type="text" name="Username">
+                    @*<i class="fas fa-check-circle field-ok"></i>*@
+                    <i class="fas fa-times-circle field-nok"></i>
+                </div>
+            </div>
+            <div class="sec-single">
+                <div class="crd">
+                    <p class="sm-text">Email</p>
+                    <input class="inpt" type="email" name="Email">
+                    @*<i class="fas fa-check-circle field-ok"></i>*@
+                    <i class="fas fa-times-circle field-nok"></i>
+                </div>
+            </div>
+            <div class="sec-single">
+                <div class="crd">
+                    <p class="sm-text">Password</p>
+                    <input class="inpt" type="password" name="Password">
+                    <i class="fas fa-check-circle field-ok"></i>
+                    @*<i class="fas fa-times-circle field-nok"></i>*@
+                </div>
+            </div>
+            <div class="sec-single">
+                <div class="crd">
+                    <p class="sm-text">Repeat password</p>
+                    <input class="inpt" type="password">
+                    <i class="fas fa-check-circle field-ok"></i>
+                    @*<i class="fas fa-times-circle field-nok"></i>*@
+                </div>
+            </div>
+            <div class="u-form-footer">
+                <input class="u-button full" type="submit" value="Submit" />
+                <div class="sm-text txt-center">
+                    <a href="/user/login">Or login here</a>
+                </div>
+            </div>
+        </form>
+    }
+</div>

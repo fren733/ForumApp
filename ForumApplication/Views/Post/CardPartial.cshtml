@@ -1,0 +1,42 @@
+﻿@model ForumApplication.Models.PostCreateModel
+
+<div class="border-section post" style="width:inherit">
+    <div class="post-top">
+        <div class="profile-image">
+            @if (Model.ProfileImage != null)
+            {
+                <img src="@Model.ProfileImage" />
+            }
+            else
+            {
+                <img src="~/Icons/anon-avatar.jpg" />
+            }
+        </div>
+        <div class="post-user sm-text">@Html.ActionLink(Model.Username, "UserProfile", "User", new { Username = Model.Username }, null) | @Model.Date</div>
+    </div>
+    <div class="post-content">
+        <p> @Model.Content </p>
+        <div id="image">
+            @if (Model.Image != null)
+            {
+                <img src="@Model.Image" alt="Card image" />
+            }
+
+        </div>
+    </div>
+    <div class="card-buttons">
+        <button onclick="OpenModal()" value="@Model.PostID"><span class="far fa-comment icon"></span></button>
+        <a href="@Url.Action("PostNo", "Post", new { ID = Model.PostID })"><span class="far fa-comments icon"></span> @Model.CommentsNum</a>
+
+        @if (Model.IsLiked)
+        {
+            <button onclick="Like(@Model.PostID)"><span class="fas fa-heart cardview-upvote icon"></span> @Model.Likes</button>
+        }
+        else
+        {
+            <button onclick="Like(@Model.PostID)"><span class="far fa-heart cardview-upvote icon-alt"></span> @Model.Likes</button>
+        }
+        <button><span class="fas fa-share-alt icon"></span></button>
+    </div>
+</div>
+

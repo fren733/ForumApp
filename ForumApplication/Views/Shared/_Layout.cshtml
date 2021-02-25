@@ -1,0 +1,136 @@
+﻿<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link href="~/Content/main.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="imageModal" class="image-modal">
+        <span class="close-image">&times;</span>
+        <img class="image-modal-content" id="img01">
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+    </div>
+    <div class="sections">
+        <div class="nav-section border-section">
+            <ul>
+                <li>
+                    <a class="double-nav-item" id="wall" href="@Url.Action("PostWall", "Post")">
+                        <p>Home</p>
+                        <span class="fab fa-font-awesome-alt"></span>
+                    </a>
+                </li>
+                @if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    <li>
+                        <a class="double-nav-item" href="@Url.Action("Login", "User")">
+                            <p>Sign in</p>
+                            <span class="fas fa-sign-in-alt"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="double-nav-item" href="@Url.Action("Register", "User")">
+                            <p>Register</p>
+                            <span class="far fa-comment"></span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="double-nav-item" href="@Url.Action("Settings", "User")">
+                            <p>Settings</p>
+                            <span class="fas fa-user-cog"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="double-nav-item" id="profile" href="@Url.Action("UserProfile", "User")">
+                            <p>Profile</p>
+                            <span class="fas fa-user"></span>
+                        </a>
+                    </li>
+                    <li class="logout-navitem">
+                        <a class="double-nav-item" href="@Url.Action("Logout", "User")">
+                            <p>Logout</p>
+                            <span class="fas fa-sign-out-alt"></span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="main-section">
+            <div>
+                @RenderBody()
+            </div>
+        </div>
+        <div class="other-section search-section">
+            <div class="border-section">
+                <div class="crd-title">
+                    <h3 class="bold none-margin">Search</h3>
+                </div>
+                <div class="sec-single">
+                    <div class="crd">
+                        <p class="sm-text">What do you want to find?</p>
+                        <input class="inpt" type="text" name="Username">
+                        <i class="fas fa-search field-ok"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="border-section recent-section">
+                <div>
+                    <h3>Most recent</h3>
+                    <ul>
+                        <li class="recent-item">
+                            <div class="post-top">
+                                <div class="profile-image">
+                                    <img src="~/Icons/anon-avatar.jpg" />
+                                </div>
+                                <div class="post-user">Test1</div>
+                            </div>
+                        </li>
+                        <li class="recent-item">
+                            <div class="post-top">
+                                <div class="profile-image">
+                                    <img src="~/Icons/anon-avatar.jpg" />
+                                </div>
+                                <div class="post-user">Test2</div>
+                            </div>
+                        </li>
+                        <li class="recent-item">
+                            <div class="post-top">
+                                <div class="profile-image">
+                                    <img src="~/Icons/anon-avatar.jpg" />
+                                </div>
+                                <div class="post-user">Test3</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-buttons">
+                    <button><i class="fas fa-sync-alt icon"></i></button>
+                    <button><i class="fas fa-sort-amount-up-alt icon"></i></button>
+                    <button><i class="fas fa-sort-amount-down-alt icon"></i></button>
+                    <button><i class="fas fa-filter icon"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function prepareImages() {
+            $("img").each(function () {
+
+                $(this).click(function () {
+                    $("#img01").attr("src", this.src);
+                    $("#imageModal").show();
+                });
+            });
+        }
+
+        $('.close-image').click(function () {
+            $('.image-modal').hide();
+        });
+
+        $(document).ready(function () {
+            prepareImages();
+        });
+    </script>
+</body>

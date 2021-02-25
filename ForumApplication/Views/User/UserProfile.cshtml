@@ -1,0 +1,204 @@
+﻿@model ForumApplication.Models.UserHelperModel
+
+
+<div>
+    <div class="background-profile">
+        @using (Html.BeginForm("UserProfile", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div id="backgroundimage" style="z-index:2;">
+                @if (Model.BackgroundImage != "")
+                {
+                    if (Model.Username == User.Identity.Name)
+                    {
+                        <div class="file">
+                            <input style="visibility:hidden" type="file" name="BackgroundImageFile" id="BackgroundImageFile" class="inputfile" />
+                            <label for="BackgroundImageFile">
+                                <img src="@Model.BackgroundImage" />
+                            </label>
+                        </div>
+                    }
+                    else
+                    {
+                        <img src="@Model.BackgroundImage" />
+                    }
+                }
+                else
+                {
+                    if (Model.Username == User.Identity.Name)
+                    {
+                        <div class="file">
+                            <input style="visibility:hidden" type="file" name="BackgroundImageFile" id="BackgroundImageFile" class="inputfile" />
+                            <label for="BackgroundImageFile">
+                                <img src="~/Images/example.jpg" />
+                            </label>
+                        </div>
+                    }
+                    else
+                    {
+                        <img src="~/Images/example.jpg" />
+                    }
+                }
+            </div>
+            <div class="border-section foreground-profile">
+
+                @if (Model.Avatar != "")
+                {
+                    if (Model.Username == User.Identity.Name)
+                    {
+                        <div class="file">
+                            <input style="visibility:hidden" type="file" name="ProfileImageFile" id="ProfileImageFile" class="inputfile" />
+                            <label for="ProfileImageFile">
+                                <img src="@Model.Avatar" />
+                            </label>
+                        </div>
+                    }
+                    else
+                    {
+                        <img src="@Model.Avatar" />
+                    }
+                }
+                else
+                {
+                    if (Model.Username == User.Identity.Name)
+                    {
+                        <div class="file">
+                            <input style="visibility:hidden" type="file" name="ProfileImageFile" id="ProfileImageFile" class="inputfile" />
+                            <label for="ProfileImageFile">
+                                <img src="~/Icons/anon-avatar.jpg" />
+                            </label>
+                        </div>
+                    }
+                    else
+                    {
+                        <img src="~/Icons/anon-avatar.jpg" />
+                    }
+                }
+                <h2>@Model.Username</h2>
+                @if (Model.Username == User.Identity.Name)
+                {
+                    <input class="u-button" style="margin-top:-1em;" type="submit" value="Save" />
+                }
+            </div>
+        }
+    </div>
+
+    <div class=" tabs-section">
+        <a href="#" class="active-tab tabs-section-item">
+            <div>
+                All
+            </div>
+        </a>
+        <a href="#" class="tabs-section-item">
+            <div>
+                Only posts
+            </div>
+        </a>
+        <a href="#" class="tabs-section-item">
+            <div>
+                Only comments
+            </div>
+        </a>
+    </div>
+    <div id="postList" class="postlist">
+
+    </div>
+    <div id="footer">
+
+    </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="content"></div>
+        </div>
+    </div>
+</div>
+<link href="~/Content/Modal.css" rel="stylesheet" />
+<script>
+    btn = $("#profile").addClass("btn-active");
+</script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<script>
+    $(document).ready(function () {
+
+        var url = '@Url.Action("GetUserPosts", "User")';
+
+        var currentPageNumber = 1;
+        loadData(currentPageNumber, url);
+
+        $(window).scroll(function () {
+            var height = $(document).height() - $(window).height();
+
+            if ($(window).scrollTop() - height > 100) {
+                currentPageNumber += 1;
+                loadData(currentPageNumber, url);
+            }
+        });
+
+        function loadData(currentPage, url) {
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: {
+                    username: '@Model.Username',
+                    pageNumber: currentPage,
+                    pageSize: 15
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data, function (i, item) {
+
+                        var postid = item.PostID;
+
+                        $.ajax({
+                            url: '@Url.Action("CardPartial", "Post")',
+                            type: 'GET',
+                            data: {
+                                PostID: postid
+                            },
+                            success: function (result) {
+                                $('#postList').append(result);
+                            }
+                        });
+                    });
+                }
+            });
+        }
+    });
+</script>
+<script>
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    function OpenModal() {
+
+        var postid = $(event.target).closest("button").attr("value");
+
+        $.ajax({
+            url: '@Url.Action("CreatePost", "Post")',
+            type: 'GET',
+            data: {
+                PostID: postid
+            },
+            error: function (xhr) {
+                alert('Error: ' + xhr.statusText);
+            },
+            success: function (result) {
+                $('#content').html(result);
+            }
+        });
+        modal.style.display = "block";
+    }
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+

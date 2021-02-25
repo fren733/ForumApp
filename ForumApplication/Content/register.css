@@ -1,0 +1,263 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+
+a {
+    text-decoration: none;
+    color: #6d6d6d;
+}
+    a:hover { color: #1a1a1a; }
+
+input[type=button]:hover, input[type=submit]:hover, button:hover { cursor: pointer; }
+input[type=button]:hover, input[type=submit]:hover, button:hover { outline: none; }
+
+.bold {
+    font-weight: 700;
+}
+
+.u-center {
+    margin: auto;
+    width: 27em;
+    margin-top: 5%;
+}
+
+.inpt,
+.input:focus,
+.textarea:focus {
+    background: transparent;
+    border: transparent 1px solid;
+    outline: none;
+    padding: 0;
+    width: 100%;
+    font-size: 1.2em;
+}
+
+
+.sec-single {
+    margin: 1em 0;
+}
+
+    .sec-double div,
+    .sec-single div {
+        display: grid;
+        grid-template-columns: auto 4em;
+    }
+
+.sec-double {
+    margin: 1.5em 0;
+    display: grid;
+    grid-template-columns: 49% 49%;
+    grid-column-gap: 1em;
+}
+
+    .sec-single div i,
+    .sec-double div i {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 3;
+        margin: auto;
+    }
+
+
+.sm-text {
+    font-size: 0.8em;
+    color: rgba(0,0,0,0.6);
+}
+
+mb0 {
+    margin-bottom: 0;
+}
+
+.field-ok {
+    color: rgb(22, 103, 209);
+}
+
+.field-nok {
+    color: rgb(196, 13, 13);
+}
+
+.u-button {
+    padding: 0.5em 0.5em;
+    background: rgb(22, 103, 209);
+    color: #eee;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+.full {
+    width: 100%;
+}
+
+.crd,
+.item-crd,
+.item-crd-lg,
+.u-form {
+    background: rgba(0,0,0,0.03);
+    border: rgb(207, 207, 207) solid 1px;
+    border-radius: 5px;
+    padding: 0.5em;
+}
+
+.u-form {
+    background: rgba(0,0,0,0.01);
+    padding: 1.5em 2em;
+}
+
+.u-form-footer {
+    padding: 1.5em 0;
+    margin-top: 0.3em;
+    border-top: 1px solid #eee;
+}
+
+    .u-form-footer div {
+        margin: 0.5em 0;
+    }
+
+.crd-title {
+    padding: 1em 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1em;
+}
+
+.txt-center {
+    text-align: center;
+}
+
+.profile-img {
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+}
+
+.nav-navbar {
+    display: flex;
+    background: rgba(0,0,0,0.03);
+    border: rgb(207, 207, 207) solid 1px;
+    padding: 0.5em;
+}
+
+.nav-triple {
+    display: grid;
+    grid-template-columns: 6em auto 10em;
+    width: 100%;
+}
+
+.content {
+    padding: 0 2em;
+    margin: 0 15%;
+}
+
+.nav-horizontal {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+    .nav-horizontal li {
+        float: left;
+    }
+
+        .nav-horizontal li div {
+            margin: auto;
+            text-align: center;
+            text-decoration: none;
+        }
+
+.checkbox-div {
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+}
+
+.icon {
+    color: rgb(161, 161, 161);
+    font-size: 20px;
+}
+
+.top-title {
+    display: grid;
+    grid-template-columns: auto 1.5em 1.5em;
+    grid-column-gap: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.icon:hover {
+    color: rgb(22, 103, 209);
+    cursor: pointer;
+}
+
+.page {
+    background: rgba(0,0,0,0.01);
+    border: rgb(207, 207, 207) solid 1px;
+    border-top: transparent;
+    margin: 0 33%;
+    padding-top: 0.2em;
+}
+
+.top-section {
+    display: grid;
+    margin-bottom: 1.5em;
+}
+
+.border-section {
+    padding: 1em;
+    border: rgb(207,207,207) solid 1px;
+    border-radius: 5px;
+    background: white;
+}
+
+.post-panel {
+    display: grid;
+    grid-template-columns: 4em auto;
+}
+
+.icons-pack {
+    grid-column-start: 0;
+    grid-column-end: 2;
+    display: grid;
+    grid-template-columns: 4em 4em 4em 4em 4em;
+    padding-top: 0.7em;
+    margin: 0 4em;
+}
+
+.post-list {
+    overflow-y: auto;
+    height: 84vh;
+}
+
+.post-header {
+    display: grid;
+    grid-template-columns: 3em auto;
+    grid-column-gap: 0.5em;
+}
+
+.user-sm {
+    color: #868686;
+    margin-top: 0.6em;
+    font-size: 0.85em;
+}
+
+.post-text {
+    margin-left: 3.5em;
+    word-break: break-all;
+}
+
+.post-img img,
+.post-img video {
+    margin-left: 3.5em;
+    border-radius: 5px;
+    width: 90%;
+    height: auto;
+}
+
+.post-img {
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #eee;
+}
